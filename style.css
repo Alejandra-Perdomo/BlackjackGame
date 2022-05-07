@@ -1,12 +1,35 @@
+
+body{
+    background-image: url('./images/sparklybanner.gif');
+    background-size: contain;
+}
+
+h3{
+    padding: 10px;
+}
+
+#blackjack-result{
+    font-family: 'Times New Roman';
+    color: white;
+}
+
 .main-container{
     width: 75%;
     margin: 0 auto;
     text-align: center;
 }
 
-.flex-blackjack-row-1,.flex-blackjack-row-2,.flex-blackjack-row-3{
+.flex-blackjack-row-1,.flex-blackjack-row-2{
     display: flex;
     border: 1px solid black;
+    padding: 10px;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.flex-blackjack-row-3{
+    display: flex;
     padding: 10px;
     flex-wrap: wrap;
     flex-direction: row;
@@ -16,18 +39,19 @@
 .flex-blackjack-row-1,.flex-blackjack-row-2{
     background-image: url('./images/blackjack-background.jpg');
     color: white;
+    font-family: 'Times New Roman';
 }
 
 .flex-blackjack-row-1 div{
     border: 1px solid black;
     padding: 10px;
-    height: 380px;
+    height: 350px;
     text-align: center;
     flex: 1;
 }
 
 .flex-blackjack-row-1 img{
-    width: 25%;
+    width: 22%;
     padding: 5px;
 }
 
@@ -37,9 +61,12 @@
 }
 
 table{
-    border: 1px solid black;
+    border: 2px solid white;
+    color: white;
 }
 
 th,td{
     padding: 6px;
+    font-family: 'Times New Roman';
+    font-size: 18px;
 }
