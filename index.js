@@ -11,6 +11,8 @@ const YOU = blackjackGame['you'];
 const DEALER = blackjackGame['dealer'];
 
 var hitSound = new Audio("./sounds/swish.m4a");
+var cashSound = new Audio("./sounds/cash.mp3");
+var LossSound = new Audio("./sounds/aww.mp3");
 
 const blackjackHit=()=>{
     let card=randomCard();
@@ -30,6 +32,7 @@ const showCard=(activePlayer,card)=>{
 }
 
 const blackjackDeal=()=>{
+    showResult(computeWinner());
     let yourCards=document.querySelector(YOU['div']).querySelectorAll('img');
     for(let card of yourCards){
         card.remove();
@@ -82,5 +85,53 @@ const showScore=(activePlayer)=>{
     
 }
 
+const dealerLogic=()=>{
+    let card = randomCard();
+    showCard(DEALER,card);
+    updateScore(card,DEALER);
+    showScore(DEALER);
+}
+
+const computeWinner=()=>{
+    let winner;
+    if(DEALER['score']<YOU['score'] && YOU['score']<=21){
+        console.log('you won');
+        winner=YOU;
+    }else if(YOU['score']<DEALER['score'] && DEALER['score']<=21){
+        console.log('You lost :(');
+        winner=DEALER;
+    }else if(YOU['score']<=21 && DEALER['score']>21){
+        console.log('You won');
+        winner=YOU;
+    }else if(DEALER['score']<=21 && YOU['score']>21){
+        console.log('You lost')
+        winner=DEALER;
+    }else{
+        console.log('you drew')
+    }
+
+    return winner;
+}
+
+const showResult=(winner)=>{
+    let message,messageColor;
+    if(winner==YOU){
+        message='You Won!!🥳😉';
+        messageColor='blue';
+        cashSound.play();
+    }else if(winner==DEALER){
+        message='You lost, try again!';
+        messageColor='red';
+        LossSound.play();
+    }else{
+        message='You Drew!';
+        messageColor='yellow';
+    }
+
+    document.querySelector('#blackjack-result').innerText=message;
+    document.querySelector('#blackjack-result').style.color=messageColor;
+}
+
 document.querySelector('#hit-btn').addEventListener('click',blackjackHit);
 document.querySelector('#deal-btn').addEventListener('click',blackjackDeal);
+document.querySelector('#stand-btn').addEventListener('click',dealerLogic)
