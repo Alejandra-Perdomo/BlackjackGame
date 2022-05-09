@@ -38,6 +38,8 @@ h3{
 
 .flex-blackjack-row-1,.flex-blackjack-row-2{
     background-image: url('./images/blackjack-background.jpg');
+    background-position: center;
+    background-size: cover;
     color: white;
     font-family: 'Times New Roman';
 }
