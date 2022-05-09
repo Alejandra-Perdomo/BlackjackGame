@@ -7,7 +7,9 @@ let blackjackGame={
     'cardsMap':{'2':2,'3':3,'4':4,'5':5,'6':6,'7':7,'8':8,'9':9,'10':10,'K':10,'J':10,'Q':10,'A':[1,11]},
     'wins':0,
     'losses':0,
-    'draws':0
+    'draws':0,
+    'standActive':false,
+    'turnsOver':false
 }
 
 const YOU = blackjackGame['you'];
@@ -18,6 +20,7 @@ var cashSound = new Audio("./sounds/cash.mp3");
 var LossSound = new Audio("./sounds/aww.mp3");
 
 const blackjackHit=()=>{
+    if(blackjackGame['standActive']==true) return;
     let card=randomCard();
     showCard(YOU,card);
     updateScore(card,YOU);
@@ -35,7 +38,12 @@ const showCard=(activePlayer,card)=>{
 }
 
 const blackjackDeal=()=>{
-    
+
+    if(blackjackGame['turnsOver']==false) return;
+
+    blackjackGame['standActive'] = false;
+    blackjackGame['turnsOver'] = false;
+
     let yourCards=document.querySelector(YOU['div']).querySelectorAll('img');
     for(let card of yourCards){
         card.remove();
@@ -91,6 +99,7 @@ const showScore=(activePlayer)=>{
 }
 
 const dealerLogic=()=>{
+    blackjackGame['standActive'] = true;
     let card = randomCard();
     showCard(DEALER,card);
     updateScore(card,DEALER);
@@ -142,6 +151,7 @@ const showResult=(winner)=>{
 
     document.querySelector('#blackjack-result').innerText=message;
     document.querySelector('#blackjack-result').style.color=messageColor;
+    blackjackGame['turnsOver'] = true;
 
 }
 
