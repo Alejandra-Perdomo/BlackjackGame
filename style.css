@@ -61,8 +61,8 @@ h3{
 }
 
 table{
-    border: 2px solid white;
-    color: white;
+    border: 2px solid rgb(184, 97, 228);
+    color: rgb(184, 97, 228);
 }
 
 th,td{

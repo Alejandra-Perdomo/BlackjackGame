@@ -63,7 +63,7 @@ const blackjackDeal=()=>{
     document.querySelector(YOU['spanScore']).style.color='white';
     document.querySelector(DEALER['spanScore']).style.color='white';
     document.querySelector('#blackjack-result').innerText="Let's play again!";
-    document.querySelector('#blackjack-result').style.color='white';
+    document.querySelector('#blackjack-result').style.color='rgb(184, 97, 228)';
 
 }
 
@@ -98,16 +98,26 @@ const showScore=(activePlayer)=>{
     
 }
 
-const dealerLogic=()=>{
-    blackjackGame['standActive'] = true;
-    let card = randomCard();
-    showCard(DEALER,card);
-    updateScore(card,DEALER);
-    showScore(DEALER);
+const sleep=(ms)=>{
+    return new Promise((resolve)=>{setTimeout(resolve,ms)})
+}
 
-    if(DEALER['score']>15){
-        showResult(computeWinner());
+async function dealerLogic(){
+    if(blackjackGame['turnsOver']== true) return;
+    if(YOU['score']==0) return;
+    blackjackGame['standActive'] = true;
+
+    while(DEALER['score']<16){
+        let card = randomCard();
+        showCard(DEALER,card);
+        updateScore(card,DEALER);
+        showScore(DEALER);
+        await sleep(1000);
     }
+
+    
+    showResult(computeWinner());
+    
 }
 
 const computeWinner=()=>{
@@ -152,6 +162,7 @@ const showResult=(winner)=>{
     document.querySelector('#blackjack-result').innerText=message;
     document.querySelector('#blackjack-result').style.color=messageColor;
     blackjackGame['turnsOver'] = true;
+    /* blackjackGame['standActive'] = false; */
 
 }
 
